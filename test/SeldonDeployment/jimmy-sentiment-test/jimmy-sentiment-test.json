@@ -1,0 +1,61 @@
+{
+    "kind": "SeldonDeployment",
+    "apiVersion": "machinelearning.seldon.io/v1",
+    "metadata": {
+        "name": "jimmy-sentiment-test",
+        "namespace": "test",
+        "creationTimestamp": null,
+        "labels": {
+            "fluentd": "true"
+        }
+    },
+    "spec": {
+        "name": "jimmy-sentiment-test",
+        "predictors": [
+            {
+                "name": "default",
+                "graph": {
+                    "name": "jimmy-sentiment-test-container",
+                    "type": "MODEL",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2021-05-12T18:29:19Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "jimmy-sentiment-test-container",
+                                    "image": "jimmywhitaker/market-sentiment-classifier:0.1",
+                                    "resources": {
+                                        "limits": {
+                                            "cpu": "1",
+                                            "memory": "2Gi"
+                                        },
+                                        "requests": {
+                                            "cpu": "100m",
+                                            "memory": "2Gi"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 100
+            }
+        ],
+        "annotations": {
+            "seldon.io/engine-seldon-log-messages-externally": "true"
+        },
+        "protocol": "seldon"
+    },
+    "status": {}
+}
